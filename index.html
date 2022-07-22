@@ -1,0 +1,67 @@
+<html>
+    
+    <head>
+    </head>
+    <body>
+        
+        <button onclick="alertBoss()">
+            Click Me
+        </button>
+        
+        <script>
+            
+            let drinks = [
+                '../CocktailsAudio/HarveyWallbanger.mp3', 
+                '../CocktailsAudio/BloodyMary.mp3',
+                '../CocktailsAudio/Cosmopolitan.mp3',
+                '../CocktailsAudio/LongIslandIceTea.mp3',
+                '../CocktailsAudio/MaiTai.mp3',
+                '../CocktailsAudio/MintJulep.mp3',
+                '../CocktailsAudio/MoscowMule.mp3',
+                '../CocktailsAudio/OldFashioned.mp3',
+                '../CocktailsAudio/PinaColada.mp3',
+                '../CocktailsAudio/Sazerac.mp3',
+                '../CocktailsAudio/Screwdriver.mp3',
+                '../CocktailsAudio/SexOnTheBeach.mp3',
+                '../CocktailsAudio/TaquilaSunrise.mp3',
+                '../CocktailsAudio/WhiskeySour.mp3',
+                '../CocktailsAudio/WooWoo.mp3',
+                '../CocktailsAudio/Zombie.mp3',
+            ]
+            
+            
+            let playAnd = () => {
+                let n = new Audio('../CocktailsAudio/And.mp3');
+                n.play();
+            }
+            
+            let alertBoss = () => {
+                
+                let number = new Audio('../CocktailsAudio/One.mp3');
+                
+                
+                let drinkIndex = Math.floor(Math.random() * drinks.length);
+                console.log(drinkIndex);
+                let drink = drinks[drinkIndex];
+                console.log(drink);
+                let drinkAudio = new Audio(drink);
+                let playDrinkAudio = () => {
+                    drinkAudio.play()
+                } 
+                number.play()
+                setTimeout(playDrinkAudio, 500);
+            }
+            
+            setTimeout(alertBoss, 1000);
+            setTimeout(playAnd, 2500);
+            setTimeout(alertBoss, 2800)
+            setTimeout(alertBoss, 15000);
+            setTimeout(alertBoss, 30000);
+            
+        </script>
+        
+        
+        
+        
+    </body>
+</html>
