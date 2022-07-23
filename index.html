@@ -11,53 +11,115 @@
         <script>
             
             let drinks = [
-                '../CocktailsAudio/HarveyWallbanger.mp3', 
-                '../CocktailsAudio/BloodyMary.mp3',
-                '../CocktailsAudio/Cosmopolitan.mp3',
-                '../CocktailsAudio/LongIslandIceTea.mp3',
-                '../CocktailsAudio/MaiTai.mp3',
-                '../CocktailsAudio/MintJulep.mp3',
-                '../CocktailsAudio/MoscowMule.mp3',
-                '../CocktailsAudio/OldFashioned.mp3',
-                '../CocktailsAudio/PinaColada.mp3',
-                '../CocktailsAudio/Sazerac.mp3',
-                '../CocktailsAudio/Screwdriver.mp3',
-                '../CocktailsAudio/SexOnTheBeach.mp3',
-                '../CocktailsAudio/TaquilaSunrise.mp3',
-                '../CocktailsAudio/WhiskeySour.mp3',
-                '../CocktailsAudio/WooWoo.mp3',
-                '../CocktailsAudio/Zombie.mp3',
+                './assets/CocktailsAudio/HarveyWallbanger.mp3', 
+                './assets/CocktailsAudio/BloodyMary.mp3',
+                './assets/CocktailsAudio/Cosmopolitan.mp3',
+                './assets/CocktailsAudio/LongIslandIceTea.mp3',
+                './assets/CocktailsAudio/MaiTai.mp3',
+                './assets/CocktailsAudio/MintJulep.mp3',
+                './assets/CocktailsAudio/MoscowMule.mp3',
+                './assets/CocktailsAudio/OldFashioned.mp3',
+                './assets/CocktailsAudio/PinaColada.mp3',
+                './assets/CocktailsAudio/Sazerac.mp3',
+                './assets/CocktailsAudio/Screwdriver.mp3',
+                './assets/CocktailsAudio/SexOnTheBeach.mp3',
+                './assets/CocktailsAudio/TaquilaSunrise.mp3',
+                './assets/CocktailsAudio/WhiskeySour.mp3',
+                './assets/CocktailsAudio/WooWoo.mp3',
+                './assets/CocktailsAudio/Zombie.mp3',
             ]
             
             
+            let orders = []
+            
+            let numberOfOrders = Math.ceil(Math.random() * 4);
+            
+            for(let i = 0; i < numberOfOrders; i++){
+                order = {};
+                order.numberOfDrinks = Math.ceil(Math.random() * 6);
+                order.drinkArray = [];
+                for(let j = 0; j < order.numberOfDrinks; j++){
+                    let drink = {};
+                    drink.index = Math.floor(Math.random() * drinks.length);
+                    drink.filePath = drinks[drink.index];
+                    drink.audio = new Audio(drink.filePath);
+                    order.drinkArray.push(drink);
+                }
+                orders.push(order);
+            }
+            
             let playAnd = () => {
-                let n = new Audio('../CocktailsAudio/And.mp3');
+                let n = new Audio('./assets/CocktailsAudio/And.mp3');
                 n.play();
             }
             
-            let alertBoss = () => {
-                
-                let number = new Audio('../CocktailsAudio/One.mp3');
-                
-                
-                let drinkIndex = Math.floor(Math.random() * drinks.length);
-                console.log(drinkIndex);
-                let drink = drinks[drinkIndex];
-                console.log(drink);
-                let drinkAudio = new Audio(drink);
-                let playDrinkAudio = () => {
-                    drinkAudio.play()
-                } 
-                number.play()
-                setTimeout(playDrinkAudio, 500);
+            let playNewOrder = () => {
+                let newOrder = new Audio('./assets/CocktailsAudio/NewOrder.mp3');
+                newOrder.play();
             }
             
-            setTimeout(alertBoss, 1000);
-            setTimeout(playAnd, 2500);
-            setTimeout(alertBoss, 2800)
-            setTimeout(alertBoss, 15000);
-            setTimeout(alertBoss, 30000);
+            let alertBoss = (ind) => {
+                
+                
+                
+                let number = new Audio('./assets/CocktailsAudio/One.mp3');
+                
+                
+                //let drinkIndex = Math.floor(Math.random() * drinks.length);
+                if(ind==0){
+                    console.log(orders);
+                }
+                
+                //let drinkFilePath = drinks[drinkIndex];
+                //let drinkAudio = new Audio(drinkFilePath);
+                
+                let playDrinkAudio = () => {
+                    orders[0].drinkArray[ind].audio.play();
+                    //drinkAudio.play()
+                } 
+                let recuse = () => {
+                    if(orders[0].drinkArray[ind+1]){
+                        
+                        alertBoss(ind+1);
+                    }
+                }
+                let playNumberAudio = () => {
+                    
+                    number.play()
+                }
+                let playFullAudio = () => {
+                    if(ind == 0 ){
+                        playNewOrder();
+                        setTimeout(playNumberAudio, 2000);
+                        setTimeout(playDrinkAudio, 2500);
+                        setTimeout(recuse, 4000);
+                    }
+                    if(ind > 0 && ind < orders[0].drinkArray.length+1){
+                        playNumberAudio();
+                        setTimeout(playDrinkAudio, 500);
+                        setTimeout(recuse, 2500);
+                    }
+                }
+                
+                    playFullAudio();
+                    //playDrinkAudio(ind);
+                    
+                    
+                
+                
+            }
             
+            let orderBase = 1000
+            let orderBase2 = 5000
+            
+            alertBoss(0);
+            //setTimeout(playAnd, orderBase+1500);
+            //setTimeout(alertBoss, orderBase+1800)
+            /*
+            setTimeout(alertBoss, orderBase+orderBase2);
+            setTimeout(playAnd, orderBase+orderBase2+1500);
+            setTimeout(alertBoss, orderBase+orderBase2+1800);
+            */
         </script>
         
         
