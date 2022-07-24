@@ -58,7 +58,7 @@
                 newOrder.play();
             }
             
-            let alertBoss = (ind) => {
+            let alertBoss = (ord, ind) => {
                 
                 
                 
@@ -74,13 +74,13 @@
                 //let drinkAudio = new Audio(drinkFilePath);
                 
                 let playDrinkAudio = () => {
-                    orders[0].drinkArray[ind].audio.play();
+                    orders[ord].drinkArray[ind].audio.play();
                     //drinkAudio.play()
                 } 
                 let recuse = () => {
-                    if(orders[0].drinkArray[ind+1]){
+                    if(orders[ord].drinkArray[ind+1]){
                         
-                        alertBoss(ind+1);
+                        alertBoss(ord, ind+1);
                     }
                 }
                 let playNumberAudio = () => {
@@ -94,7 +94,7 @@
                         setTimeout(playDrinkAudio, 2500);
                         setTimeout(recuse, 4000);
                     }
-                    if(ind > 0 && ind < orders[0].drinkArray.length+1){
+                    if(ind > 0 && ind < orders[ord].drinkArray.length+1){
                         playNumberAudio();
                         setTimeout(playDrinkAudio, 500);
                         setTimeout(recuse, 2500);
@@ -109,10 +109,27 @@
                 
             }
             
+            let iterateOrders = (ordersIndex) => {
+                let i = ordersIndex;
+                alertBoss(i, 0)
+                
+                let recurse = () => {
+                    if(i != orders.length - 1){
+                        setTimeout(iterateOrders(i+1), 15000);
+                    }
+                }
+                
+                setTimeout(recurse, 15000);
+                
+                
+             
+            }
+            
             let orderBase = 1000
             let orderBase2 = 5000
             
-            alertBoss(0);
+            iterateOrders(0);
+            //alertBoss(0);
             //setTimeout(playAnd, orderBase+1500);
             //setTimeout(alertBoss, orderBase+1800)
             /*
